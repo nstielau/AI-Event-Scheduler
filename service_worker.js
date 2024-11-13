@@ -39,6 +39,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId == "create-gcal-url") {
+        console.log(info);
         chrome.storage.sync.get(["apiKey", "defaultModel", "selectedMode"], function (result) {
             chrome.scripting.insertCSS({
                 target: { tabId: tab.id },
@@ -69,8 +70,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
                 } else if (selectedMode === "auto") {
                     request_params = autoSelect(selectedText);
                 }
+                console.log(`${info.pageUrl} is creating an event from\n`, selectedText);
 
                 const request = buildRequest(request_params, apiKey, model);
+                console.log("Prompt\n", request.options.body);
                 fetch(request.endpoint, request.options)
                     .then(response => response.json())
                     .then(data => {
