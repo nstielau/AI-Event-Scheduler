@@ -6,9 +6,9 @@ import { isAllDayEvent } from "./modules/util.js";
 
 
 const modelHandlers = {
-    "gpt-5-mini": { build: buildRequestOpenAI, parse: parseResponseOpenAI },
-    "gpt-4o-mini": { build: buildRequestOpenAI, parse: parseResponseOpenAI },
-    "gpt-4.1": { build: buildRequestOpenAI, parse: parseResponseOpenAI },
+    "gpt-6-luna": { build: buildRequestOpenAI, parse: parseResponseOpenAI },
+    "gpt-6.1-terra": { build: buildRequestOpenAI, parse: parseResponseOpenAI },
+    "gpt-6.1-sol": { build: buildRequestOpenAI, parse: parseResponseOpenAI },
     "gemini-3.5-flash-lite": { build: buildRequestGemini, parse: parseResponseGemini },
     "gemini-3.7-flash": { build: buildRequestGemini, parse: parseResponseGemini },
 };
@@ -58,7 +58,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
                 const apiKey = result.apiKey;
                 let selectedMode = result.selectedMode;
                 let model = result.defaultModel;
-                if (model === undefined) model = "gpt-5-mini";
+                if (!modelHandlers[model]) model = "gpt-6-luna";
                 if (selectedMode === undefined) selectedMode = "newTab";
 
                 const selectedText = info.selectionText;

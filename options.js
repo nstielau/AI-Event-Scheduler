@@ -6,7 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.storage.sync.get('defaultModel', function (data) {
         if (data.defaultModel) {
             const modelSelect = document.getElementById('model-select');
-            modelSelect.value = data.defaultModel;
+            const savedModelIsSupported = [...modelSelect.options]
+                .some((option) => option.value === data.defaultModel);
+            modelSelect.value = savedModelIsSupported ? data.defaultModel : "gpt-6-luna";
             M.FormSelect.init(modelSelect);
         }
     });
