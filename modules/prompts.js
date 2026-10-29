@@ -112,13 +112,13 @@ export function iCalDownload(selectionText) {
 export function autoSelect(selectionText) {
 
     const params = {
-        prompt: `Assume today's date is ${new Date().toISOString()}. 
+        prompt: `Assume today's date is ${new Date().toISOString()}.
         Assume the the desired timezone is ${Intl.DateTimeFormat().resolvedOptions().timeZone}
-        Analyze the following text: ${selectionText} 
+        Analyze the following text: ${selectionText}
 
         Does it contain a single date or more than one date?
-                
-        If the text contains more than one date, use the function generate_ical_file_function(), else 
+
+        If the text contains more than one date, use the function generate_ical_file_function(), else
         if the text contains a single date, use the function get_event_information_function() instead.
         `
         ,

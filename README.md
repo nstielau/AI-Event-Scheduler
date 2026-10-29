@@ -2,7 +2,7 @@
 AI Event Scheduler is a chrome extension that allows you to quickly and easily create Google calendar events by simply simply selecting a text and clicking a button.
 
 ![demo](https://user-images.githubusercontent.com/2355491/210706757-323e764e-ee9f-464d-baf8-475c8862bb18.gif)
-**Disclaimer**: This extension is not affiliated with the webpage shown above. 
+**Disclaimer**: This extension is not affiliated with the webpage shown above.
 
 ## Setup and use guide
 > [!NOTE]
@@ -43,4 +43,3 @@ To install the extension:
         <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/666cfc2a-4011-4e04-b2c0-a81bdd81537d" width=18px height=18px>
         <img alt="new tab" src="https://github.com/user-attachments/assets/5d6b7f11-8a94-4ccf-9a7c-668f1c5d6b48" width=18px height=18px>
       </picture> <b>automatic mode</b>: automatically detects the type of text and uses the appropriate mode.
-    

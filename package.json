@@ -1,0 +1,9 @@
+{
+  "name": "ai-event-scheduler",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "for file in service_worker.js options.js popup.js modules/*.js; do node --check \"$file\"; done",
+    "test": "node --test"
+  }
+}
