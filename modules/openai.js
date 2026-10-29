@@ -1,30 +1,29 @@
 export function buildRequestOpenAI(request_params, apiKey, model) {
 
     const prompt = request_params.prompt;
-    let tools = [];
-    for (const func of request_params.functions) {
-        tools.push({
-            "type": "function",
-            "function": func
-        });
-    }
+    const tools = request_params.functions.map((func) => ({
+        "type": "function",
+        "name": func.name,
+        "description": func.description,
+        "parameters": func.parameters,
+        "strict": false
+    }));
 
-    let tool_choice;
+    let tool_choice = "required";
     if (request_params.functions.length === 1) {
-        tool_choice = { "type": "function", "function": { "name": request_params.functions[0].name } };
-    } else {
-        tool_choice = "required";
+        tool_choice = { "type": "function", "name": request_params.functions[0].name };
     }
 
-    const message = { role: "user", content: prompt };
     const request_body = JSON.stringify({
         model: model,
-        messages: [message],
+        input: prompt,
         tools: tools,
-        tool_choice: tool_choice
+        tool_choice: tool_choice,
+        reasoning: { effort: model === "gpt-6.1-sol" ? "low" : "none" },
+        store: false
     });
     const request = {
-        endpoint: "https://api.openai.com/v1/chat/completions",
+        endpoint: "https://api.openai.com/v1/responses",
         options: {
             method: "POST",
             headers: {
@@ -40,10 +39,15 @@ export function buildRequestOpenAI(request_params, apiKey, model) {
 
 export function parseResponseOpenAI(data) {
 
-    const parsedResponse = {
-        function_used: data.choices[0].message.tool_calls[0].function.name,
-        event: JSON.parse(data.choices[0].message.tool_calls[0].function.arguments)
+    const functionCall = data.output?.find((item) => item.type === "function_call");
+    if (!functionCall) {
+        throw new Error("OpenAI did not return a function call");
     }
+
+    const parsedResponse = {
+        function_used: functionCall.name,
+        event: JSON.parse(functionCall.arguments)
+    };
 
     return parsedResponse;
 }
