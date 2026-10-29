@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Options button        
+    // Options button
     const optionsButton = document.getElementById('optionsButton');
     optionsButton.addEventListener('click', function () {
         chrome.runtime.openOptionsPage();

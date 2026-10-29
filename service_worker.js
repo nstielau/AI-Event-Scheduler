@@ -150,7 +150,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
                             });
                         }
 
-                        // CSS rule to set the cursor back to default 
+                        // CSS rule to set the cursor back to default
                         chrome.scripting.insertCSS({
                             target: { tabId: tab.id },
                             css: 'body { cursor: default; }'

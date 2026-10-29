@@ -1,0 +1,28 @@
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: [--maxkb=500]
+
+  - repo: local
+    hooks:
+      - id: javascript-syntax
+        name: JavaScript syntax
+        entry: npm run lint
+        language: system
+        pass_filenames: false
+        files: '\.(js|mjs)$'
+      - id: node-tests
+        name: Node tests
+        entry: npm test
+        language: system
+        pass_filenames: false
+        files: '(^package\.json$|\.(js|mjs)$)'
